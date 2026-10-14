@@ -2,6 +2,8 @@
 
 An illustrated Chinese pinyin reader with a Duolingo-inspired interface: 14 songs, 206 lyric pages, character pronunciation, spelling practice, sentence narration, and recorded music.
 
+[Open the public website](https://wizard9018.github.io/songbooks/)
+
 ![Songbook reader](docs/reader.png)
 
 ## Run
