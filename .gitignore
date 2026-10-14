@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.log
+*.zip
+.testdeps/
+.impeccable/
+Chinese-Lyric-Corpus/
+歌曲原唱/
+童年配图/
+原唱对齐/*.wav
+原唱对齐/*-asr*.json
+原唱对齐/*-full-timestamp.json
+/*预览*.png
+**/预览/
+**/工作流/
+**/配图总览.jpg

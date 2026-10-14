@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#58cc02">
+  <title>Invisible Wings · Illustrated Read-Along</title>
+  <link rel="stylesheet" href="style.css?v=recordings-1">
+  <script src="recording-data.js?v=clips-1" defer></script>
+  <script src="book-data.js?v=dedup-1" defer></script>
+  <script src="page-turn.js?v=1" defer></script>
+  <script src="reader.js?v=duo-1" defer></script>
+  <script src="original-recording.js?v=clips-1" defer></script>
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="duo-reader.css?v=duo-1">
+  <script src="duo-theme.js?v=duo-1" defer></script>
+</head>
+<body>
+  <header class="book-header">
+    <div class="book-name"><h1>Invisible Wings</h1><p>An illustrated read-along</p></div>
+    <div class="header-controls">
+      <a id="home-link" class="home-link" href="../index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6-6 6 6 6M4 12h16"/></svg><span>Home</span></a>
+      <label class="speed-label">Speed <select id="speed" aria-label="Reading speed"><option value="slow" selected>Slow</option><option value="slower">Slower</option><option value="normal">Normal</option></select></label>
+      <button id="read-page" class="read-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7V5Z"/></svg><span>Read sentence</span></button>
+
+    </div>
+  </header>
+  <main>
+    <article class="book-page" aria-label="Picture book page">
+      <nav class="page-navigation" aria-label="Page navigation">
+        <button id="previous" class="nav-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg><span>Previous</span></button>
+        <div class="page-position"><label for="page-picker" class="sr-only">Choose a page</label><select id="page-picker"></select><span id="page-title" class="sr-only"></span></div>
+        <button id="next" class="nav-button"><span>Next</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+      </nav>
+      <div class="illustration"><img id="picture" src="assets/images/01.png" alt="An illustrated songbook" width="1280" height="720"></div>
+      <section class="caption" aria-label="Click characters to hear their pronunciation">
+        <div id="lyrics" class="lyrics" lang="zh-CN"></div>
+        <div class="sr-only"><span id="reading-status" role="status" aria-live="polite">Tap a character to listen. Type its pinyin on the line below.</span></div>
+      </section>
+    </article>
+  </main>
+  <footer><span>Invisible Wings</span><span class="keyboard-hint">A / W / ← / ↑ previous · S / D / → / ↓ next</span></footer>
+  <audio id="narrator" preload="none"></audio>
+  <noscript><p class="noscript">Enable JavaScript to turn pages and listen.</p></noscript>
+</body>
+</html>

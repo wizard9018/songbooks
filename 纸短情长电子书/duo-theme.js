@@ -1,0 +1,10 @@
+const playbackControls = document.querySelector('.recording-bar');
+playbackControls.prepend(document.getElementById('read-page'));
+const lessonProgress = document.createElement('progress');
+lessonProgress.className = 'lesson-progress';
+lessonProgress.max = window.BOOK.length;
+lessonProgress.setAttribute('aria-label', 'Songbook page progress');
+document.querySelector('.book-page').prepend(lessonProgress);
+window.updateLessonProgress = index => { lessonProgress.value = index + 1; };
+window.updateLessonProgress(Number(document.getElementById('page-picker').value));
+requestAnimationFrame(fitPage);

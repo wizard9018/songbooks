@@ -1,0 +1,32 @@
+:root{--canvas:#fff;--paper:#fff;--ink:#3c3c3c;--muted:#646464;--accent:#237d00;--green:#58cc02}
+body{font-family:Nunito,"Microsoft YaHei",sans-serif;background:#f7fbf2}
+::selection{background:#d7ffb8;color:#245700}
+.book-header{padding:12px 0;gap:18px}
+.book-name h1{font-family:Nunito,"Microsoft YaHei",sans-serif;font-size:30px;font-weight:900;color:#237d00;letter-spacing:0}
+.book-name p{font-size:12px;color:#646464}.header-controls{font-weight:800}
+.book-page{border:2px solid #e5e5e5;border-bottom-width:5px;border-radius:22px;overflow:hidden;box-shadow:none}
+.lesson-progress{display:block;width:calc(100% - 40px);height:12px;margin:15px 20px 3px;border:0;border-radius:20px;overflow:hidden;appearance:none;background:#e5e5e5}
+.lesson-progress::-webkit-progress-bar{background:#e5e5e5;border-radius:20px}.lesson-progress::-webkit-progress-value{background:#58cc02;border-radius:20px}.lesson-progress::-moz-progress-bar{background:#58cc02;border-radius:20px}
+.page-navigation{padding:9px 12px;gap:20px}
+.nav-button,.recording-bar button{border:2px solid #e5e5e5;border-bottom-width:5px;border-radius:14px;background:#fff;font-family:Nunito,"Microsoft YaHei",sans-serif;font-weight:800;color:#267f00;letter-spacing:.02em;transition:transform .12s,border-color .12s}
+.nav-button{font-size:16px;padding:7px 20px;min-height:44px}
+.nav-button:not(:disabled):hover,.recording-bar button:hover{background:#f1fbe8;border-color:#a5dd7f;color:#237d00}
+.nav-button:not(:disabled):active,.recording-bar button:active{transform:translateY(3px);border-bottom-width:2px}
+#page-picker{font-family:Nunito,sans-serif;font-size:17px;font-weight:900;color:#646464}
+.illustration{background:#fff}.illustration img{border-radius:14px}
+.caption{gap:12px;padding:12px 20px 14px}
+.recording-bar{flex-wrap:wrap;gap:10px}
+.recording-bar button{min-height:40px;padding:6px 15px;font-size:13px}
+.recording-bar .read-button{background:#58cc02;border-color:#58cc02;border-bottom-color:#3fa000;color:#173e00}
+.recording-bar .read-button:hover{background:#65db10;border-color:#58cc02;border-bottom-color:#3fa000;color:#173e00}
+.recording-bar span{color:#646464}
+.recording-bar .read-button span{color:inherit}
+.character:hover,.character.playing,.lyric-line.playing{background:#e5f8d6;color:#237d00}
+rt{font-family:Nunito,"Microsoft YaHei",sans-serif;font-weight:700;color:#4c4c4c}
+.spelling{border-bottom:2px solid #afafaf;color:#3c3c3c;border-radius:3px;caret-color:#237d00}
+.spelling.correct{border-color:#58cc02;color:#237d00;background:#edfbe3}
+.spelling:focus{border-color:#1cb0f6;background:#e9f7ff}
+button:focus-visible,select:focus-visible,input:focus-visible,.home-link:focus-visible{outline:3px solid #1cb0f6;outline-offset:3px}
+.home-link{color:#237d00;font-weight:900;font-size:14px}footer{font-family:Nunito,sans-serif;color:#646464}
+@media(max-width:600px){.book-header{padding:8px 0;gap:4px}.book-name h1{font-size:24px}.book-name{flex-wrap:wrap;gap:4px 10px}.caption{padding:10px 8px}.recording-bar{gap:6px 8px}.recording-bar button{padding:5px 10px;min-height:38px;font-size:12px}.lesson-progress{margin-top:11px;height:10px}.nav-button{padding:6px 12px;min-height:40px;font-size:14px}.page-navigation{padding:7px 8px;gap:12px}.book-page{border-radius:18px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
