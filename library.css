@@ -31,3 +31,4 @@ footer{padding:36px 0 24px;color:var(--muted);font-size:12px}
 .song-actions{margin-top:14px}.song-artist{font-size:12px}.book p{min-height:38px}
 #book-count{background:#edfbe3;border:2px solid #c5eba7;border-radius:16px;padding:9px 14px;font-weight:800;color:#237d00}
 @media(max-width:450px){.songbook{padding:10px;border-radius:16px}.book h2{font-size:18px}.play-song{font-size:12px;padding:6px 9px}.song-artist{font-size:10px}header{gap:12px}#book-count{padding:7px 9px}}
+@media(pointer:coarse){.play-song,.song-player button{min-height:48px}}

@@ -30,3 +30,5 @@ button:focus-visible,select:focus-visible,input:focus-visible,.home-link:focus-v
 .home-link{color:#237d00;font-weight:900;font-size:14px}footer{font-family:Nunito,sans-serif;color:#646464}
 @media(max-width:600px){.book-header{padding:8px 0;gap:4px}.book-name h1{font-size:24px}.book-name{flex-wrap:wrap;gap:4px 10px}.caption{padding:10px 8px}.recording-bar{gap:6px 8px}.recording-bar button{padding:5px 10px;min-height:38px;font-size:12px}.lesson-progress{margin-top:11px;height:10px}.nav-button{padding:6px 12px;min-height:40px;font-size:14px}.page-navigation{padding:7px 8px;gap:12px}.book-page{border-radius:18px}}
 @media(prefers-reduced-motion:reduce){button{transition:none}}
+.book-page{touch-action:pan-y pinch-zoom}footer{padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+@media(min-width:601px) and (pointer:coarse){.nav-button,.recording-bar button,.home-link,#speed,#page-picker{min-height:48px}.recording-bar{gap:12px}.character{min-width:48px;min-height:48px}.header-controls{gap:10px 18px}.spelling{font-size:max(16px,var(--spelling-size))}}

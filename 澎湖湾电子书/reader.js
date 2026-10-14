@@ -70,7 +70,8 @@ function playLine(index) {
 
 function render(index) {
   if (index < 0 || index >= pages.length) return;
-  if (index !== pageIndex) window.capturePageTurn(index > pageIndex ? 1 : -1);
+  const turnedPage = index !== pageIndex;
+  if (turnedPage) window.capturePageTurn(index > pageIndex ? 1 : -1);
   stop();
   pageIndex = index;
   const page = pages[index];
@@ -151,6 +152,11 @@ function render(index) {
   window.updateOriginalLyric?.(index);
   window.updateLessonProgress?.(index);
   requestAnimationFrame(fitPage);
+  if (turnedPage) {
+    wholePage = true;
+    readButton.querySelector("span").textContent = "Stop reading";
+    playLine(0);
+  }
 }
 
 function fitPage() {
@@ -204,14 +210,22 @@ document.addEventListener('keydown', event => {
   if (['a', 'w', 'arrowleft', 'arrowup'].includes(key)) { event.preventDefault(); render(pageIndex - 1); }
 });
 let touchStart = null;
-picture.addEventListener('touchstart', event => { touchStart = event.changedTouches[0]; }, { passive: true });
-picture.addEventListener('touchend', event => {
-  if (!touchStart) return;
-  const deltaX = event.changedTouches[0].clientX - touchStart.clientX;
-  const deltaY = event.changedTouches[0].clientY - touchStart.clientY;
-  if (Math.abs(deltaX) > 65 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) render(pageIndex + (deltaX < 0 ? 1 : -1));
-  touchStart = null;
+const swipeSurface = document.querySelector('.book-page');
+swipeSurface.addEventListener('touchstart', event => {
+  if (event.touches.length !== 1 || event.target.closest('button,input,select,a,textarea,[contenteditable="true"]')) { touchStart = null; return; }
+  const touch = event.touches[0];
+  touchStart = { x: touch.clientX, y: touch.clientY, time: performance.now() };
 }, { passive: true });
+swipeSurface.addEventListener('touchend', event => {
+  if (!touchStart) return;
+  const start = touchStart;
+  touchStart = null;
+  const touch = event.changedTouches[0];
+  const deltaX = touch.clientX - start.x;
+  const deltaY = touch.clientY - start.y;
+  if (performance.now() - start.time < 1000 && Math.abs(deltaX) > 72 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) render(pageIndex + (deltaX < 0 ? 1 : -1));
+}, { passive: true });
+swipeSurface.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
 window.addEventListener('pagehide', stop);
 window.addEventListener('resize', () => requestAnimationFrame(fitPage));
 document.fonts.ready.then(fitPage);
