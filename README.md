@@ -18,11 +18,12 @@ Open http://127.0.0.1:8784/index.html. The site also works by opening `index.htm
 
 - Select a cover to open a songbook; **Home** returns to the library.
 - **Play song** plays the complete downloaded recording.
-- **Read sentence** and **Play this lyric** sit together below the illustration.
+- Lyrics and pinyin inputs sit above the illustration; **Read sentence** and **Play this lyric** stay together underneath it.
 - Click a Chinese character to hear its pronunciation. Type its pinyin underneath; correct spelling reads the character and advances to the next input. Completing the last input advances to the next page.
 - Use Previous/Next, the page selector, WASD, arrow keys, or an image swipe to turn pages. Keyboard navigation does not interrupt typing.
 - Each page turn automatically reads the new sentence once, including turns after completing the final pinyin input.
 - iPad portrait and landscape layouts support left/right swipes across the page. Buttons, spelling inputs, vertical gestures, and multi-touch gestures do not accidentally turn pages.
+- When the on-screen keyboard reduces the visible viewport, the illustration shrinks or hides and the lyric area can scroll internally to keep the active input visible. Closing the keyboard restores the picture. Touch inputs use at least 16px type, disable autocorrection, and support the keyboard's Next/Done key; pinch zoom remains available.
 - Sentence narration offers normal and two independently synthesized slow speeds. The recording and narration stop one another; turning a page stops playback.
 
 Repeated whole lyric lines appear once. The local FunASR pipeline uses supplied complete lyrics and ASR timestamps to align the first sung occurrence. The downloaded singer/version is shown in the interface. Singing, accompaniment, and wording differences can affect automatic segment boundaries; the result is not a claim of manual audio review.

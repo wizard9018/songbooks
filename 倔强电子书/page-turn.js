@@ -6,12 +6,12 @@ window.capturePageTurn = direction => {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const article = document.querySelector('.book-page');
   const illustration = article.querySelector('.illustration');
-  const rectangle = illustration.getBoundingClientRect();
   const caption = article.querySelector('.caption');
+  const rectangle = caption.getBoundingClientRect();
   const properties = ['display','width','height','min-width','max-width','box-sizing','padding','margin','border','border-top','border-right','border-bottom','border-left','border-radius','outline','appearance','background','color','font','line-height','letter-spacing','text-align','white-space','flex-direction','flex-wrap','align-items','justify-content','gap','object-fit','overflow','ruby-align','fill','stroke','stroke-width'];
   const sheet = document.createElement('div');
   sheet.style.cssText = `position:absolute;left:${rectangle.left}px;top:${rectangle.top}px;width:${rectangle.width}px;background:${getComputedStyle(article).backgroundColor};transform-origin:${direction > 0 ? 'left' : 'right'} center;backface-visibility:hidden;`;
-  for (const source of [illustration, caption]) {
+  for (const source of [caption, illustration]) {
     const clone = source.cloneNode(true);
     const originals = [source, ...source.querySelectorAll('*')];
     const copies = [clone, ...clone.querySelectorAll('*')];

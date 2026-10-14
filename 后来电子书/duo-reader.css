@@ -32,3 +32,10 @@ button:focus-visible,select:focus-visible,input:focus-visible,.home-link:focus-v
 @media(prefers-reduced-motion:reduce){button{transition:none}}
 .book-page{touch-action:pan-y pinch-zoom}footer{padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 @media(min-width:601px) and (pointer:coarse){.nav-button,.recording-bar button,.home-link,#speed,#page-picker{min-height:48px}.recording-bar{gap:12px}.character{min-width:48px;min-height:48px}.header-controls{gap:10px 18px}.spelling{font-size:max(16px,var(--spelling-size))}}
+body{height:var(--reader-height,100dvh)}
+.book-page>.recording-bar{padding:8px 12px 14px}
+.keyboard-picture-hidden .illustration,.keyboard-open footer,.keyboard-open .book-name p{display:none}
+.keyboard-open main,.compact-reader main{align-items:flex-start;overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;scroll-padding:8px 0 76px}
+.keyboard-open .book-page{overflow:visible}
+.keyboard-open .recording-bar{position:sticky;bottom:0;background:var(--paper);border-top:1px solid #e5e5e5;padding:8px 12px;z-index:2}
+@media(pointer:coarse){.spelling{font-size:max(16px,var(--spelling-size));min-height:36px}.nav-button,.recording-bar button,.home-link,#speed,#page-picker{min-height:48px}}

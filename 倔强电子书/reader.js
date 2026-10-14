@@ -15,6 +15,13 @@ let playRequest = 0;
 let spellingNextPage = null;
 const spellingAnswers = new Map();
 
+function focusPracticeInput(field) {
+  if (!field) return;
+  field.focus({ preventScroll: true });
+  field.select();
+  requestAnimationFrame(() => window.ensurePracticeInputVisible?.());
+}
+
 function pinyinLetters(value) {
   return value.trim().toLowerCase().normalize('NFD').replace(/u\u0308/g, 'v').replace(/[\u0300-\u036f]/g, '');
 }
@@ -111,6 +118,10 @@ function render(index) {
         const spelling = document.createElement('input');
         spelling.className = 'spelling';
         spelling.type = 'text';
+        spelling.lang = 'en';
+        spelling.inputMode = 'text';
+        spelling.setAttribute('autocorrect', 'off');
+        spelling.enterKeyHint = index === pages.length - 1 && !/\p{Script=Han}/u.test(line.text.slice(characterIndex + 1)) ? 'done' : 'next';
         spelling.setAttribute('aria-label', `Spell the pinyin for ${character}`);
         spelling.autocomplete = 'off';
         spelling.setAttribute('autocapitalize', 'off');
@@ -133,11 +144,21 @@ function render(index) {
           playAudio(line.characterAudio[characterIndex], word, `Pronunciation: ${character} (${line.syllables[characterIndex]})`);
           const fields = Array.from(lyrics.querySelectorAll('.spelling'));
           const next = fields[fields.indexOf(spelling) + 1];
-          if (next) { next.focus(); next.select(); }
+          if (next) focusPracticeInput(next);
           else if (index + 1 < pages.length) spellingNextPage = index + 1;
         }
         spelling.addEventListener('input', checkSpelling);
         spelling.addEventListener('compositionend', checkSpelling);
+        spelling.addEventListener('keydown', event => {
+          if (event.key !== 'Enter' || event.isComposing) return;
+          event.preventDefault();
+          if (pinyinLetters(spelling.value) !== pinyinLetters(line.syllables[characterIndex])) return;
+          checkSpelling(event);
+          const fields = Array.from(lyrics.querySelectorAll('.spelling'));
+          const next = fields[fields.indexOf(spelling) + 1];
+          if (next) focusPracticeInput(next);
+          else if (index === pages.length - 1) spelling.blur();
+        });
         cell.append(word, spelling);
         word.addEventListener('click', () => {
           if (active === word && !audio.paused) { stop(); return; }
@@ -164,28 +185,33 @@ function fitPage() {
   const main = document.querySelector('main');
   const caption = document.querySelector('.caption');
   const illustration = document.querySelector('.illustration');
+  const progress = document.querySelector('.lesson-progress');
+  const progressStyle = progress && getComputedStyle(progress);
+  const progressHeight = progress ? progress.offsetHeight + parseFloat(progressStyle.marginTop) + parseFloat(progressStyle.marginBottom) : 0;
+  const playbackHeight = document.querySelector('.recording-bar')?.offsetHeight || 0;
+  const navigationHeight = document.querySelector('.page-navigation').offsetHeight;
+  const decorationHeight = progressHeight + playbackHeight + navigationHeight + 7;
+  const keyboardOpen = document.body.classList.contains('keyboard-open');
   const maximum = innerWidth <= 600 ? 32 : 36;
-  const reserve = Math.min(140, main.clientHeight * 0.25);
+  const reserve = Math.min(100, main.clientHeight * 0.15);
   for (let size = maximum; size >= 20; size -= 2) {
     document.documentElement.style.setProperty('--character-size', `${size}px`);
     document.documentElement.style.setProperty('--pinyin-size', `${Math.max(13, Math.round(size * 0.5))}px`);
     document.documentElement.style.setProperty('--spelling-size', `${Math.max(10, Math.round(size * 0.36))}px`);
-    if (caption.offsetHeight + reserve <= main.clientHeight) break;
+    if (keyboardOpen || caption.offsetHeight + decorationHeight + reserve <= main.clientHeight) break;
   }
-  const navigationHeight = document.querySelector('.page-navigation').offsetHeight;
-  const progress = document.querySelector('.lesson-progress');
-  const progressStyle = progress && getComputedStyle(progress);
-  const progressHeight = progress ? progress.offsetHeight + parseFloat(progressStyle.marginTop) + parseFloat(progressStyle.marginBottom) : 0;
-  const borderHeight = 7;
-  illustration.style.height = `${Math.max(0, Math.min(main.clientHeight - caption.offsetHeight - navigationHeight - progressHeight - borderHeight, illustration.clientWidth * 9 / 16, innerHeight * 0.5))}px`;
+  const remaining = main.clientHeight - caption.offsetHeight - decorationHeight;
+  const compact = !keyboardOpen && remaining < 48;
+  document.body.classList.toggle('compact-reader', compact);
+  document.body.classList.toggle('keyboard-picture-hidden', keyboardOpen && remaining < 120);
+  illustration.style.height = `${keyboardOpen ? remaining >= 120 ? Math.min(160, remaining) : 0 : compact ? 96 : Math.max(0, Math.min(remaining, illustration.clientWidth * 9 / 16, innerHeight * 0.5))}px`;
 }
 
 audio.addEventListener('ended', () => {
   if (spellingNextPage !== null) {
     render(spellingNextPage);
     const first = lyrics.querySelector('.spelling');
-    first?.focus();
-    first?.select();
+    focusPracticeInput(first);
   } else if (wholePage && currentLine + 1 < pages[pageIndex].lines.length) playLine(currentLine + 1);
   else stop();
 });

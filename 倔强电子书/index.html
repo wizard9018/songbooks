@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="style.css?v=recordings-1">
   <script src="recording-data.js?v=clips-1" defer></script>
   <script src="book-data.js?v=dedup-1" defer></script>
-  <script src="page-turn.js?v=1" defer></script>
-  <script src="reader.js?v=ipad-read-1" defer></script>
+  <script src="page-turn.js?v=keyboard-top-1" defer></script>
+  <script src="reader.js?v=keyboard-top-1" defer></script>
   <script src="original-recording.js?v=clips-1" defer></script>
   <link rel="stylesheet" href="fonts.css">
-  <link rel="stylesheet" href="duo-reader.css?v=ipad-read-1">
-  <script src="duo-theme.js?v=duo-1" defer></script>
+  <link rel="stylesheet" href="duo-reader.css?v=keyboard-top-1">
+  <script src="duo-theme.js?v=keyboard-top-1" defer></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Songbooks">
 </head>
@@ -34,11 +34,11 @@
         <div class="page-position"><label for="page-picker" class="sr-only">Choose a page</label><select id="page-picker"></select><span id="page-title" class="sr-only"></span></div>
         <button id="next" class="nav-button"><span>Next</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
       </nav>
-      <div class="illustration"><img id="picture" src="assets/images/01.png" alt="An illustrated songbook" width="1280" height="720"></div>
       <section class="caption" aria-label="Click characters to hear their pronunciation">
         <div id="lyrics" class="lyrics" lang="zh-CN"></div>
         <div class="sr-only"><span id="reading-status" role="status" aria-live="polite">Tap a character to listen. Type its pinyin on the line below.</span></div>
       </section>
+      <div class="illustration"><img id="picture" src="assets/images/01.png" alt="An illustrated songbook" width="1280" height="720"></div>
     </article>
   </main>
   <footer><span>Persistence</span><span class="keyboard-hint">A / W / ← / ↑ previous · S / D / → / ↓ next</span></footer>
