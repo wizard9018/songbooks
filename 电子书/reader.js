@@ -15,6 +15,51 @@ let playRequest = 0;
 let spellingNextPage = null;
 const spellingAnswers = new Map();
 
+const pinyinHint = document.createElement('button');
+pinyinHint.id = 'pinyin-hint';
+pinyinHint.className = 'pinyin-hint';
+pinyinHint.textContent = 'Show pinyin';
+pinyinHint.setAttribute('aria-controls', 'lyrics');
+pinyinHint.setAttribute('aria-pressed', 'false');
+let pinyinHintTimer = null;
+let practiceField = null;
+
+function resetPinyinHint() {
+  clearTimeout(pinyinHintTimer);
+  pinyinHintTimer = null;
+  practiceField = null;
+  lyrics.classList.remove('pinyin-hidden');
+  pinyinHint.disabled = true;
+  pinyinHint.textContent = 'Show pinyin';
+  pinyinHint.setAttribute('aria-pressed', 'false');
+}
+
+lyrics.addEventListener('focusin', event => {
+  if (!event.target.matches('.spelling')) return;
+  practiceField = event.target;
+  pinyinHint.disabled = false;
+  if (pinyinHintTimer === null) lyrics.classList.add('pinyin-hidden');
+});
+pinyinHint.addEventListener('pointerdown', event => event.preventDefault());
+pinyinHint.addEventListener('click', () => {
+  clearTimeout(pinyinHintTimer);
+  lyrics.classList.remove('pinyin-hidden');
+  pinyinHint.textContent = 'Pinyin · 5s';
+  pinyinHint.setAttribute('aria-pressed', 'true');
+  pinyinHintTimer = setTimeout(() => {
+    pinyinHintTimer = null;
+    lyrics.classList.add('pinyin-hidden');
+    pinyinHint.textContent = 'Show pinyin';
+    pinyinHint.setAttribute('aria-pressed', 'false');
+  }, 5000);
+  practiceField?.focus({ preventScroll: true });
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.recording-bar').prepend(pinyinHint);
+  fitPage();
+});
+
+
 function focusPracticeInput(field) {
   if (!field) return;
   field.focus({ preventScroll: true });
@@ -80,6 +125,7 @@ function render(index) {
   const turnedPage = index !== pageIndex;
   if (turnedPage) window.capturePageTurn(index > pageIndex ? 1 : -1);
   stop();
+  resetPinyinHint();
   pageIndex = index;
   const page = pages[index];
   picture.src = page.image;

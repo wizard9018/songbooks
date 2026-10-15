@@ -39,3 +39,6 @@ body{height:var(--reader-height,100dvh)}
 .keyboard-open .book-page{overflow:visible}
 .keyboard-open .recording-bar{position:sticky;bottom:0;background:var(--paper);border-top:1px solid #e5e5e5;padding:8px 12px;z-index:2}
 @media(pointer:coarse){.spelling{font-size:max(16px,var(--spelling-size));min-height:36px}.nav-button,.recording-bar button,.home-link,#speed,#page-picker{min-height:48px}}
+
+.pinyin-hidden rt{visibility:hidden}
+.recording-bar .pinyin-hint:disabled{opacity:.45;cursor:default}
