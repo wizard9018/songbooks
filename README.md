@@ -25,6 +25,7 @@ Open http://127.0.0.1:8784/index.html. The site also works by opening `index.htm
 - Each page turn automatically reads the new sentence once, including turns after completing the final pinyin input.
 - iPad portrait and landscape layouts support left/right swipes across the page. Buttons, spelling inputs, vertical gestures, and multi-touch gestures do not accidentally turn pages.
 - When the on-screen keyboard reduces the visible viewport, the illustration shrinks or hides and the lyric area can scroll internally to keep the active input visible. Closing the keyboard restores the picture. Touch inputs use at least 16px type, disable autocorrection, and support the keyboard's Next/Done key; pinch zoom remains available.
+- With the iPad landscape keyboard open, the reader shows only the active row of characters and pinyin inputs plus **Show pinyin**. The row follows spelling focus automatically; closing the keyboard restores the full page.
 - Sentence narration offers normal and two independently synthesized slow speeds. The recording and narration stop one another; turning a page stops playback.
 
 Repeated whole lyric lines appear once. The local FunASR pipeline uses supplied complete lyrics and ASR timestamps to align the first sung occurrence. The downloaded singer/version is shown in the interface. Singing, accompaniment, and wording differences can affect automatic segment boundaries; the result is not a claim of manual audio review.

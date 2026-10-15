@@ -42,3 +42,12 @@ body{height:var(--reader-height,100dvh)}
 
 .pinyin-hidden rt{visibility:hidden}
 .recording-bar .pinyin-hint:disabled{opacity:.45;cursor:default}
+
+.keyboard-row-mode{position:fixed;top:var(--reader-offset-top,0px);left:0;right:0;overflow:hidden}
+.keyboard-row-mode .book-header,.keyboard-row-mode .lesson-progress,.keyboard-row-mode .page-navigation,.keyboard-row-mode .illustration{display:none}
+.keyboard-row-mode main{align-items:center;overflow:hidden;scroll-padding:0}
+.keyboard-row-mode .book-page{overflow:hidden}
+.keyboard-row-mode .lyrics{display:block;overflow:hidden}
+.keyboard-row-mode .lyric-line{flex-shrink:0}
+.keyboard-row-mode .recording-bar button:not(.pinyin-hint),.keyboard-row-mode .recording-bar>span{display:none}
+.keyboard-row-mode .recording-bar{position:static;min-height:64px}

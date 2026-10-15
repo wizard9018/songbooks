@@ -20,6 +20,18 @@ window.ensurePracticeInputVisible = () => {
   if (!field?.matches('.spelling') || !(document.body.classList.contains('keyboard-open') || document.body.classList.contains('compact-reader'))) return;
   const viewport = window.visualViewport;
   if (viewport && Math.abs(viewport.scale - 1) > .05) return;
+  if (document.body.classList.contains('keyboard-row-mode')) {
+    const lyrics = document.getElementById('lyrics');
+    const cell = field.closest('.character-cell').getBoundingClientRect();
+    const row = Array.from(lyrics.querySelectorAll('.character-cell'))
+      .map(element => element.getBoundingClientRect())
+      .filter(bounds => Math.abs(bounds.top - cell.top) < 2);
+    const height = Math.max(...row.map(bounds => bounds.bottom)) - Math.min(...row.map(bounds => bounds.top));
+    const offset = cell.top - lyrics.getBoundingClientRect().top + lyrics.scrollTop;
+    lyrics.style.height = `${Math.ceil(height)}px`;
+    lyrics.scrollTop = offset;
+    return;
+  }
   const main = document.querySelector('main');
   const bounds = main.getBoundingClientRect();
   const input = field.closest('.character-cell').getBoundingClientRect();
@@ -40,6 +52,14 @@ function updateReaderViewport() {
   const keyboardOpen = typing && Math.max(window.innerHeight, fullViewportHeight) - height > 120;
   document.documentElement.style.setProperty('--reader-height', `${Math.floor(height)}px`);
   document.body.classList.toggle('keyboard-open', Boolean(keyboardOpen));
+  const rowMode = keyboardOpen && window.innerWidth > fullViewportHeight;
+  document.body.classList.toggle('keyboard-row-mode', rowMode);
+  document.documentElement.style.setProperty('--reader-offset-top', `${Math.floor(viewport?.offsetTop || 0)}px`);
+  if (!rowMode) {
+    const lyrics = document.getElementById('lyrics');
+    lyrics.style.height = '';
+    lyrics.scrollTop = 0;
+  }
   if (!keyboardOpen) document.querySelector('main').scrollTop = 0;
   fitPage();
   window.ensurePracticeInputVisible();
